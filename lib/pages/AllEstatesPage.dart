@@ -1,128 +1,90 @@
 import 'package:flutter/material.dart';
+import 'package:rental/utils/SortUtils.dart';
 import '../models/Estate.dart';
+import '../utils/EstateCard.dart';
 
-class AllEstatesPage extends StatelessWidget {
+class AllEstatesPage extends StatefulWidget {
   final String title;
   final List<Estate> estates;
 
   const AllEstatesPage({required this.title, required this.estates});
 
   @override
+  _AllEstatesPageState createState() => _AllEstatesPageState();
+}
+
+class _AllEstatesPageState extends State<AllEstatesPage>{
+
+  late List<Estate> _sortedEstates;
+  String _currentSort = "title";
+  bool _isAscending = true;
+
+  @override
+  void initState(){
+    super.initState();
+    _sortedEstates = [...widget.estates];
+  }
+
+  void _sortEstates(String sortBy){
+    setState(() {
+      _currentSort = sortBy;
+      _isAscending = !_isAscending;
+      _sortedEstates = SortUtils.sortBy(sortBy, _sortedEstates, _isAscending);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(widget.title),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: estates.length,
-        itemBuilder: (context, index) {
-          final estate = estates[index];
-          return EstateCard(estate: estate);
-        },
-      ),
-    );
-  }
-}
-
-class EstateCard extends StatefulWidget{
-  final Estate estate;
-
-  const EstateCard({required this.estate});
-  @override
-  State<StatefulWidget> createState() => _EstateCardState();
-}
-
-class _EstateCardState extends State<EstateCard>{
-  bool isFavorite = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(12),
-            child: Text(
-              widget.estate.title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(width: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                child: Image.network(
-                  widget.estate.imageUrl,
-                  width: 190,
-                  height: 120,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.estate.address,
-                      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      "\$${widget.estate.price}",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.orange,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              IconButton(
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? Colors.red : Colors.grey
-                ),
-                onPressed: (){
-                  setState((){
-                    isFavorite = !isFavorite;
-                  });
-                  print(isFavorite
-                      ? 'Added to favorites!'
-                      : 'Removed from favorites');
-                },
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(16),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Icon(Icons.visibility, size: 16, color: Colors.grey),
-                SizedBox(width: 4),
-                Text('${widget.estate.views} views',
-                    style: TextStyle(fontSize: 12, color: Colors.grey)),
+                _buildSortButton("Price", Icons.attach_money, "price"),
+                _buildSortButton("Title", Icons.sort_by_alpha, "title"),
+                _buildSortButton("Date", Icons.calendar_today, "date")
               ],
             ),
           ),
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: _sortedEstates.length,
+              itemBuilder: (context, index) {
+                final estate = _sortedEstates[index];
+                return EstateCard(estate: estate);
+              },
+            )
+          )
         ],
+      ),
+    );
+  }
+
+  Widget _buildSortButton(String label, IconData icon, String sortBy) {
+    return ElevatedButton.icon(
+      onPressed: () => _sortEstates(sortBy),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: _currentSort == sortBy ? Colors.orange : Colors.grey[800],
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        elevation: 4,
+      ),
+      icon: Icon(icon, size: 18),
+      label: Text(
+        _currentSort == sortBy
+            ? (_isAscending ? "$label ↑" : "$label ↓")
+            : label,
+        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
       ),
     );
   }

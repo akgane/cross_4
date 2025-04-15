@@ -6,6 +6,8 @@ class Estate{
   final String imageUrl;
   final double price;
   final int views;
+  final Map<String, dynamic> features;
+  final DateTime postedDate;
 
   Estate({
     required this.id,
@@ -14,6 +16,8 @@ class Estate{
     required this.address,
     required this.imageUrl,
     required this.price,
-    this.views = 0
+    this.views = 0,
+    required this.features,
+    required this.postedDate
   });
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rental/models/Category.dart';
+import 'package:rental/pages/EstateDetailsPage.dart';
+import 'package:rental/utils/CategoriesUtils.dart';
+import 'package:rental/utils/Extensions.dart';
 import '../models/Estate.dart';
 import '../pages/AllEstatesPage.dart'; // Импортируем модель Estate
 
@@ -32,8 +35,9 @@ class TopBar extends StatelessWidget{
 
 class CategoriesSection extends StatelessWidget{
   final List<Category> categories;
+  final List<Estate> allEstates;
 
-  CategoriesSection({required this.categories});
+  CategoriesSection({required this.categories, required this.allEstates});
 
   @override
   Widget build(BuildContext context) {
@@ -44,19 +48,35 @@ class CategoriesSection extends StatelessWidget{
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, mainAxisSpacing: 12, crossAxisSpacing: 12),
       itemBuilder: (context, index){
         final category = categories[index];
-        return Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.grey[200],
+        return GestureDetector(
+          onTap: (){
+            Navigator.push(
+                context, 
+                MaterialPageRoute(
+                    builder:
+                        (context) =>
+                            AllEstatesPage
+                              (
+                                title: category.title,
+                                estates: CategoriesUtils.getCategoryEstates(allEstates, category.title)
+                            )
+                )
+            );
+          },
+            child: Column(
+              children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.grey[200],
+                ),
+                padding: EdgeInsets.all(12),
+                child: Icon(category.icon),
               ),
-              padding: EdgeInsets.all(12),
-              child: Icon(category.icon),
-            ),
-            SizedBox(height: 4),
-            Text(category.title),
-          ],
+              SizedBox(height: 4),
+              Text(category.title),
+            ],
+          )
         );
       },
     );
@@ -135,57 +155,67 @@ class EstateList extends StatelessWidget {
         separatorBuilder: (_, __) => SizedBox(width: 12),
         itemBuilder: (context, index) {
           final estate = estates[index];
-          return Container(
-            width: 160,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [BoxShadow(color: Colors.grey.shade200, blurRadius: 6)],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                  child: Image.network(
-                    estate.imageUrl,
-                    height: 100,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+          return GestureDetector(
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EstateDetailsPage(estate: estate)
+                )
+              );
+            },
+            child: Container(
+              width: 160,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [BoxShadow(color: Colors.grey.shade200, blurRadius: 6)],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                    child: Image.network(
+                      estate.imageUrl,
+                      height: 100,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        estate.title,
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        children: [
-                          Icon(Icons.location_on, size: 14, color: Colors.grey),
-                          SizedBox(width: 4),
-                          Expanded(
-                            child: Text(
-                              estate.address,
-                              style: TextStyle(fontSize: 12),
-                              overflow: TextOverflow.ellipsis,
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          estate.title,
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.location_on, size: 14, color: Colors.grey),
+                            SizedBox(width: 4),
+                            Expanded(
+                              child: Text(
+                                estate.address,
+                                style: TextStyle(fontSize: 12),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        estate.price.toString(),
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
-                      ),
-                    ],
+                          ],
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "\$${estate.price}",
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            )
           );
         },
       ),
