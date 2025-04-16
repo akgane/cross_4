@@ -114,7 +114,8 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
                   zoom: 15.0,
                 ),
               ),
-            )
+            ),
+            SizedBox(height: 20,)
           ],
         ),
       ),

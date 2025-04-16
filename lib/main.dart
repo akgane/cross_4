@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rental/data/data.dart';
 import 'package:rental/models/Category.dart';
 import 'package:rental/pages/ChatsPage.dart';
@@ -112,7 +113,10 @@ class MainPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IconButton(icon: Icon(Icons.camera_alt), onPressed: () {}),
+                IconButton(icon: Icon(Icons.camera_alt), onPressed: () async {
+                  final ImagePicker picker = ImagePicker();
+                  final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+                }),
                 IconButton(
                   icon: Icon(Icons.favorite),
                   onPressed: () async {
@@ -151,4 +155,7 @@ class MainPage extends StatelessWidget {
         );
       },
     );
-  }}
+  }
+
+
+}
