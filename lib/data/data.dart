@@ -33,7 +33,7 @@ final List<Estate> exampleEstates = [
     title: "City Penthouse",
     category: "Apartment",
     address: "999 Skyline Avenue",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/apartment1.jpg",
     price: 300000,
     postedDate: DateTime(2023, 5, 15),
     features: {
@@ -53,7 +53,7 @@ final List<Estate> exampleEstates = [
     title: "Downtown Loft",
     category: "Apartment",
     address: "45 Arts District",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/apartment2.jpg",
     price: 185000,
     postedDate: DateTime(2023, 6, 22),
     features: {
@@ -72,7 +72,7 @@ final List<Estate> exampleEstates = [
     title: "Riverside Studio",
     category: "Apartment",
     address: "88 Riverwalk Lane",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/apartment3.jpg",
     price: 120000,
     postedDate: DateTime(2023, 4, 5),
     features: {
@@ -91,7 +91,7 @@ final List<Estate> exampleEstates = [
     title: "Historic District Flat",
     category: "Apartment",
     address: "22 Heritage Square",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/apartment4.jpg",
     price: 210000,
     postedDate: DateTime(2023, 7, 18),
     features: {
@@ -111,7 +111,7 @@ final List<Estate> exampleEstates = [
     title: "Modern High-Rise",
     category: "Apartment",
     address: "303 Glass Tower Road",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/apartment1.jpg",
     price: 275000,
     postedDate: DateTime(2023, 8, 3),
     features: {
@@ -133,7 +133,7 @@ final List<Estate> exampleEstates = [
     title: "Suburban Family Home",
     category: "Home",
     address: "123 Maple Street",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/house1.jpg",
     price: 350000,
     postedDate: DateTime(2023, 3, 12),
     features: {
@@ -152,7 +152,7 @@ final List<Estate> exampleEstates = [
     title: "Cozy Cottage",
     category: "Home",
     address: "7 Countryside Lane",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/house2.jpg",
     price: 195000,
     postedDate: DateTime(2023, 9, 1),
     features: {
@@ -171,7 +171,7 @@ final List<Estate> exampleEstates = [
     title: "Renovated Victorian",
     category: "Home",
     address: "500 Old Town Road",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/house3.jpg",
     price: 420000,
     postedDate: DateTime(2023, 5, 30),
     features: {
@@ -191,7 +191,7 @@ final List<Estate> exampleEstates = [
     title: "Modern Ranch House",
     category: "Home",
     address: "250 Prairie Avenue",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/house4.jpg",
     price: 310000,
     postedDate: DateTime(2023, 7, 7),
     features: {
@@ -210,7 +210,7 @@ final List<Estate> exampleEstates = [
     title: "Lakefront Property",
     category: "Home",
     address: "1 Waters Edge",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/house5.jpg",
     price: 550000,
     postedDate: DateTime(2023, 6, 10),
     features: {
@@ -231,7 +231,7 @@ final List<Estate> exampleEstates = [
     title: "Executive Suite",
     category: "Office",
     address: "100 Business Center",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/office1.jpg",
     price: 200000,
     postedDate: DateTime(2023, 4, 18),
     features: {
@@ -250,7 +250,7 @@ final List<Estate> exampleEstates = [
     title: "Tech Startup Space",
     category: "Office",
     address: "45 Innovation Drive",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/office2.jpg",
     price: 320000,
     postedDate: DateTime(2023, 8, 22),
     features: {
@@ -269,7 +269,7 @@ final List<Estate> exampleEstates = [
     title: "Medical Office",
     category: "Office",
     address: "78 Health Plaza",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/office3.jpg",
     price: 280000,
     postedDate: DateTime(2023, 5, 5),
     features: {
@@ -287,7 +287,7 @@ final List<Estate> exampleEstates = [
     title: "Law Firm Premises",
     category: "Office",
     address: "30 Justice Building",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/office4.jpg",
     price: 375000,
     postedDate: DateTime(2023, 7, 30),
     features: {
@@ -306,7 +306,7 @@ final List<Estate> exampleEstates = [
     title: "Retail Office Space",
     category: "Office",
     address: "200 Commerce Street",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/office5.jpg",
     price: 240000,
     postedDate: DateTime(2023, 6, 15),
     features: {
@@ -327,7 +327,7 @@ final List<Estate> exampleEstates = [
     title: "Luxury Beach Villa",
     category: "Villa",
     address: "5 Oceanfront Drive",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/villa1.jpg",
     price: 1200000,
     postedDate: DateTime(2023, 4, 1),
     features: {
@@ -347,7 +347,7 @@ final List<Estate> exampleEstates = [
     title: "Mountain Retreat Villa",
     category: "Villa",
     address: "88 Alpine Way",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/villa2.jpg",
     price: 850000,
     postedDate: DateTime(2023, 8, 10),
     features: {
@@ -367,7 +367,7 @@ final List<Estate> exampleEstates = [
     title: "Mediterranean Estate",
     category: "Villa",
     address: "22 Vineyard Lane",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/villa3.jpg",
     price: 950000,
     postedDate: DateTime(2023, 5, 20),
     features: {
@@ -387,7 +387,7 @@ final List<Estate> exampleEstates = [
     title: "Private Island Villa",
     category: "Villa",
     address: "1 Paradise Island",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/villa4.jpg",
     price: 2500000,
     postedDate: DateTime(2023, 2, 14),
     features: {
@@ -407,7 +407,7 @@ final List<Estate> exampleEstates = [
     title: "Gated Community Villa",
     category: "Villa",
     address: "500 Elite Circle",
-    imageUrl: "https://placehold.jp/255x150.png",
+    imageUrl: "https://cross-rentalestate.s3.us-east-1.amazonaws.com/villa1.jpg",
     price: 680000,
     postedDate: DateTime(2023, 7, 1),
     features: {
