@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rental/utils/Extensions.dart';
 import 'package:rental/utils/FavoriteUtils.dart';
 import '../models/Estate.dart';
@@ -14,6 +15,8 @@ class EstateDetailsPage extends StatefulWidget {
 
 class _EstateDetailsPageState extends State<EstateDetailsPage>{
   bool isFavorite = false;
+  late GoogleMapController mapController;
+  final LatLng _center = LatLng(37.7749, -122.4194);
 
   @override
   void initState() {
@@ -84,7 +87,6 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
             ),
             SizedBox(height: 8),
             Text(
-
               "This is a detailed description of the property. It includes information about the location, amenities, and unique features of the estate.",
               style: TextStyle(fontSize: 14, color: Colors.grey[700]),
             ),
@@ -95,6 +97,24 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
             ),
             SizedBox(height: 8),
             _buildFeaturesTable(),
+            SizedBox(height: 16),
+            Text(
+              "Location on Map",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            SizedBox(
+              height: 200,
+              child: GoogleMap(
+                onMapCreated: (GoogleMapController controller) {
+                  mapController = controller;
+                },
+                initialCameraPosition: CameraPosition(
+                  target: _center,
+                  zoom: 15.0,
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -108,7 +128,7 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              entry.key.capitalize(),
+              entry.key.capitalize().removeUnderscore(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey[800]),
             ),
             Text(

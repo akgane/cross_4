@@ -20,4 +20,9 @@ class SortUtils{
     }
     return estates;
   }
+
+  static List<Estate> getRandom(int count, List<Estate> estates){
+    estates.shuffle();
+    return estates.take(count).toList();
+  }
 }
