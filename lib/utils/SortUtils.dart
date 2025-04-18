@@ -17,6 +17,9 @@ class SortUtils{
           return ascending ? dateA.compareTo(dateB) : dateB.compareTo(dateA);
         });
         break;
+      case "views":
+        estates.sort((a, b) => (ascending ? a.views.compareTo(b.views) : b.views.compareTo(a.views)));
+        break;
     }
     return estates;
   }

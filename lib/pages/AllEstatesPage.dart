@@ -48,7 +48,8 @@ class _AllEstatesPageState extends State<AllEstatesPage>{
               children: [
                 _buildSortButton("Price", Icons.attach_money, "price"),
                 _buildSortButton("Title", Icons.sort_by_alpha, "title"),
-                _buildSortButton("Date", Icons.calendar_today, "date")
+                _buildSortButton("Date", Icons.calendar_today, "date"),
+                _buildSortButton("Views", Icons.visibility, "views")
               ],
             ),
           ),
@@ -76,7 +77,7 @@ class _AllEstatesPageState extends State<AllEstatesPage>{
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         elevation: 4,
       ),
       icon: Icon(icon, size: 18),
@@ -84,7 +85,7 @@ class _AllEstatesPageState extends State<AllEstatesPage>{
         _currentSort == sortBy
             ? (_isAscending ? "$label ↑" : "$label ↓")
             : label,
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
       ),
     );
   }

@@ -39,7 +39,13 @@ class _EstateCardState extends State<EstateCard>{
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: (){
+        onTap: () {
+          widget.estate.increaseViews();
+
+          setState(() {
+            
+          });
+
           Navigator.push(
             context,
             MaterialPageRoute(

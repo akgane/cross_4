@@ -157,6 +157,8 @@ class EstateList extends StatelessWidget {
           final estate = estates[index];
           return GestureDetector(
             onTap: (){
+              estate.increaseViews();
+
               Navigator.push(
                 context,
                 MaterialPageRoute(

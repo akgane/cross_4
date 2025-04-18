@@ -7,7 +7,7 @@ class Estate{
   final String address;
   final String imageUrl;
   final double price;
-  final int views;
+  int views;
   final Map<String, dynamic> features;
   final DateTime postedDate;
 
@@ -45,6 +45,7 @@ class Estate{
       price: (data['price'] as num?)?.toDouble() ?? 0.0,
       postedDate: parsePostedDate(data['postedDate']),
       features: Map<String, dynamic>.from(data['features'] ?? {}),
+      views: (data['views'] as num?)?.toInt() ?? 0,
     );
   }
 
@@ -59,5 +60,15 @@ class Estate{
       postedDate: postedDate,
       features: Map<String, dynamic>.from(features),
     );
+  }
+
+  Future<void> increaseViews() async{
+    views++;
+
+    final firestore = FirebaseFirestore.instance;
+    final estateRef = firestore.collection('estates').doc(id);
+    await estateRef.update({
+      'views' : FieldValue.increment(1),
+    });
   }
 }

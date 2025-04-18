@@ -79,6 +79,13 @@ class MainPage extends StatelessWidget {
         final List<Estate> estates = snapshot.data![1] as List<Estate>;
         final User currentUser = snapshot.data![2] as User;
 
+        String est = "";
+        for(Estate estate in estates){
+          est += "${estate.title} | ${estate.views}\n";
+        }
+        print(est);
+        print(estates.length);
+
         return Scaffold(
           backgroundColor: Colors.white,
           body: SafeArea(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rental/utils/Extensions.dart';
@@ -42,7 +43,18 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.estate.title),
+        title: Row(
+          children: [
+            Text(
+              widget.estate.title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+            ),
+            SizedBox(width: 4,),
+            Text(
+              '(${widget.estate.id})',
+              style: TextStyle(fontSize: 12, color: Colors.grey[400]),
+            )
+          ],
+        ),
         actions: [
           IconButton(
             icon: Icon(
