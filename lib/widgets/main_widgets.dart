@@ -22,12 +22,19 @@ class TopBar extends StatelessWidget{
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Welcome back!", style: TextStyle(fontSize: 12)),
-            Text(username, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text(
+                "Welcome back!",
+                style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodyMedium?.color)),
+            Text(
+                username,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.bodyMedium?.color)),
           ],
         ),
         Spacer(),
-        Icon(Icons.notifications_none),
+        Icon(
+            Icons.notifications_none,
+            color: Theme.of(context).iconTheme.color,
+        ),
       ],
     );
   }
@@ -68,13 +75,22 @@ class CategoriesSection extends StatelessWidget{
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: Colors.grey[200],
+                  // color: Colors.grey[200],
+                  color: Theme.of(context).cardColor,
                 ),
                 padding: EdgeInsets.all(12),
-                child: Icon(category.icon),
+                child: Icon(
+                    category.icon,
+                    color: Theme.of(context).iconTheme.color
+                ),
               ),
               SizedBox(height: 4),
-              Text(category.title),
+              Text(
+                  category.title,
+                  style: TextStyle(
+                    fontSize: 14, color: Theme.of(context).textTheme.bodyMedium?.color
+                  )
+              ),
             ],
           )
         );
@@ -146,6 +162,8 @@ class EstateList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       height: 200,
       margin: EdgeInsets.only(top: 12),
@@ -169,9 +187,14 @@ class EstateList extends StatelessWidget {
             child: Container(
               width: 160,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: theme.cardColor,
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: [BoxShadow(color: Colors.grey.shade200, blurRadius: 6)],
+                boxShadow: [
+                  BoxShadow(
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                      blurRadius: 6
+                  )
+                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

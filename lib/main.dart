@@ -1,16 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:rental/data/data.dart';
 import 'package:rental/models/Category.dart';
 import 'package:rental/pages/ChatsPage.dart';
 import 'package:rental/pages/FavoritesPage.dart';
+import 'package:rental/pages/MapPage.dart';
+import 'package:rental/pages/SettingsPage.dart';
 import 'package:rental/utils/FavoriteUtils.dart';
 import 'package:rental/utils/SortUtils.dart';
+import 'package:rental/utils/ThemeProvider.dart';
 import 'package:rental/widgets/main_widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+import 'models/City.dart';
 import 'models/Estate.dart';
 import 'models/Users.dart';
 
@@ -21,15 +26,72 @@ Future<void> main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => ThemeProvider(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
+  final lightTheme = ThemeData(
+    brightness: Brightness.light,
+    primaryColor: Colors.orange,
+    scaffoldBackgroundColor: Colors.white,
+    cardColor: Colors.grey[50],
+    textTheme: TextTheme(
+      bodyMedium: TextStyle(color: Colors.black),
+      bodySmall: TextStyle(color: Colors.grey[600]),
+      titleMedium: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      titleLarge: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+    ),
+    iconTheme: IconThemeData(color: Colors.black),
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.orange,
+      foregroundColor: Colors.white,
+    ),
+    colorScheme: ColorScheme.light(
+      primary: Colors.orange,
+      secondary: Colors.deepOrange,
+      // onBackground: Colors.black,
+      onSurface: Colors.black,
+      error: Colors.red,
+    ),
+  );
+
+  final darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    primaryColor: Colors.deepOrange,
+    scaffoldBackgroundColor: Color(0xff212529),
+    cardColor: Colors.grey[850],
+    textTheme: TextTheme(
+      bodyMedium: TextStyle(color: Colors.white),
+      bodySmall: TextStyle(color: Colors.grey[400]),
+      titleMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      titleLarge: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+    ),
+    iconTheme: IconThemeData(color: Colors.white),
+    appBarTheme: AppBarTheme(
+      backgroundColor: Color(0xff343a40),
+      foregroundColor: Colors.white,
+    ),
+    colorScheme: ColorScheme.dark(
+      primary: Colors.deepOrange,
+      secondary: Colors.orange,
+      // onBackground: Colors.white,
+      onSurface: Colors.transparent,
+      error: Colors.red,
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       title: 'Rental Estate App',
-      theme: ThemeData(primarySwatch: Colors.orange),
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: themeProvider.themeMode,
       home: MainPage(),
       debugShowCheckedModeBanner: false,
     );
@@ -57,6 +119,12 @@ class MainPage extends StatelessWidget {
     return User.fromFirestore(snapshot.docs[0]);
   }
 
+  Future<List<City>> fetchCities() async{
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('cities').get();
+    return snapshot.docs.map((doc) => City.fromFirestore(doc)).toList();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +133,7 @@ class MainPage extends StatelessWidget {
         fetchCategories(),
         fetchEstates(),
         fetchExampleUser(),
+        fetchCities()
       ]),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -78,6 +147,7 @@ class MainPage extends StatelessWidget {
         final List<Category> categories = snapshot.data![0] as List<Category>;
         final List<Estate> estates = snapshot.data![1] as List<Estate>;
         final User currentUser = snapshot.data![2] as User;
+        final List<City> cities = snapshot.data![3] as List<City>;
 
         String est = "";
         for(Estate estate in estates){
@@ -87,7 +157,7 @@ class MainPage extends StatelessWidget {
         print(estates.length);
 
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SafeArea(
             child: ListView(
               padding: const EdgeInsets.all(16),
@@ -143,26 +213,36 @@ class MainPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatsPage(),
-                      ),
+                        builder: (context) => ChatsPage()
+                      )
                     );
                   },
                 ),
-                IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+                IconButton(
+                    icon: Icon(Icons.settings),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SettingsPage()
+                        )
+                      );
+                  }
+                ),
               ],
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: Colors.orange,
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => MapPage(cities: cities)));
+            },
+            backgroundColor: Theme.of(context).primaryColor,
             shape: CircleBorder(),
-            child: Icon(Icons.swap_horiz),
+            child: Icon(Icons.map),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         );
       },
     );
   }
-
-
 }

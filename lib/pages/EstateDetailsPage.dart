@@ -41,17 +41,20 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
             Text(
-              widget.estate.title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+              widget.estate.title,
+                style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             SizedBox(width: 4,),
             Text(
               '(${widget.estate.id})',
-              style: TextStyle(fontSize: 12, color: Colors.grey[400]),
+              style: theme.textTheme.bodySmall,
             )
           ],
         ),
@@ -59,11 +62,11 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
           IconButton(
             icon: Icon(
               isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: isFavorite ? Colors.red : Colors.grey,
+              color: isFavorite ? theme.colorScheme.error : theme.iconTheme.color,
             ),
             onPressed: _toggleFavorite,
           )
-        ]
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -83,36 +86,40 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
 
             Text(
               widget.estate.title,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleLarge,
             ),
             SizedBox(height: 8),
 
             Text(
               "\$${widget.estate.price}",
-              style: TextStyle(fontSize: 20, color: Colors.orange, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20,
+                  color: theme.colorScheme.secondary,
+                  fontWeight: FontWeight.bold
+              ),
             ),
             SizedBox(height: 16),
 
             Text(
               "Description",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 8),
             Text(
               "This is a detailed description of the property. It includes information about the location, amenities, and unique features of the estate.",
-              style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+              style: theme.textTheme.bodySmall,
             ),
             SizedBox(height: 16),
             Text(
               "Property Details",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 8),
             _buildFeaturesTable(),
             SizedBox(height: 16),
             Text(
               "Location on Map",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 8),
             SizedBox(
@@ -135,6 +142,7 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
   }
 
   Widget _buildFeaturesTable(){
+    final theme = Theme.of(context);
     return Column(
       children: widget.estate.features.entries.map((entry){
         return Row(
@@ -142,11 +150,11 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
           children: [
             Text(
               entry.key.capitalize().removeUnderscore(),
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey[800]),
+              style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             Text(
               entry.value.toString().capitalize(),
-              style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+              style: theme.textTheme.bodySmall,
             ),
           ],
         );

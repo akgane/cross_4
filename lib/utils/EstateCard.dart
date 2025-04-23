@@ -38,6 +38,8 @@ class _EstateCardState extends State<EstateCard>{
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return GestureDetector(
         onTap: () {
           widget.estate.increaseViews();
@@ -56,11 +58,11 @@ class _EstateCardState extends State<EstateCard>{
         child: Container(
           margin: EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: theme.cardColor,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.shade300,
+                color:  theme.colorScheme.onSurface.withValues(alpha: 0.2),
                 blurRadius: 6,
                 offset: Offset(0, 3),
               ),
@@ -73,7 +75,7 @@ class _EstateCardState extends State<EstateCard>{
                 padding: const EdgeInsets.all(12),
                 child: Text(
                   widget.estate.title,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: theme.textTheme.titleMedium,
                 ),
               ),
               Row(
@@ -96,7 +98,7 @@ class _EstateCardState extends State<EstateCard>{
                       children: [
                         Text(
                           widget.estate.address,
-                          style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                          style: theme.textTheme.bodySmall,
                         ),
                         SizedBox(height: 8),
                         Text(
@@ -104,7 +106,7 @@ class _EstateCardState extends State<EstateCard>{
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.orange,
+                            color: theme.colorScheme.secondary,
                           ),
                         ),
                       ],
@@ -113,7 +115,7 @@ class _EstateCardState extends State<EstateCard>{
                   IconButton(
                     icon: Icon(
                         isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? Colors.red : Colors.grey
+                        color: isFavorite ? theme.colorScheme.error : theme.iconTheme.color
                     ),
                     onPressed: _toggleFavorite,
                   ),
@@ -123,10 +125,11 @@ class _EstateCardState extends State<EstateCard>{
                 padding: const EdgeInsets.all(12),
                 child: Row(
                   children: [
-                    Icon(Icons.visibility, size: 16, color: Colors.grey),
+                    Icon(Icons.visibility, size: 16, color: theme.textTheme.bodySmall?.color),
                     SizedBox(width: 4),
                     Text('${widget.estate.views} views',
-                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                        style: theme.textTheme.bodySmall
+                    ),
                   ],
                 ),
               ),
