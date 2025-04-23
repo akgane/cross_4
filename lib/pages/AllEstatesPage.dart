@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rental/utils/SortUtils.dart';
+import 'package:rental/utils/sort_utils.dart';
 import '../models/Estate.dart';
-import '../utils/EstateCard.dart';
+import '../widgets/category_estates_list/estate_card.dart';
 
 class AllEstatesPage extends StatefulWidget {
   final String title;

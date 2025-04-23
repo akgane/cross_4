@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/Estate.dart';
-import '../utils/EstateCard.dart';
+import '../widgets/category_estates_list/estate_card.dart';
 
 class FavoritesPage extends StatelessWidget {
   final List<Estate> estates;

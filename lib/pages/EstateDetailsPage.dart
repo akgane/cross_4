@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rental/utils/Extensions.dart';
-import 'package:rental/utils/FavoriteUtils.dart';
+import 'package:rental/utils/extensions.dart';
+import 'package:rental/utils/favorites_utils.dart';
 import '../models/Estate.dart';
 
 class EstateDetailsPage extends StatefulWidget {

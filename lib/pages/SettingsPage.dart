@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../utils/ThemeProvider.dart';
+import '../utils/theme_provider.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -17,7 +18,10 @@ class SettingsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              title: Text("Dark Mode"),
+              title: Text(
+                  "Dark Mode",
+                  style: theme.textTheme.bodyMedium,
+              ),
               trailing: Switch(
                 value: themeProvider.themeMode == ThemeMode.dark,
                 onChanged: (value) {
@@ -28,7 +32,7 @@ class SettingsPage extends StatelessWidget {
             SizedBox(height: 16),
             Text(
               "Other Settings",
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: theme.textTheme.bodyMedium,
             ),
           ],
         ),

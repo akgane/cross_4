@@ -1,17 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:rental/data/data.dart';
 import 'package:rental/models/Category.dart';
-import 'package:rental/pages/ChatsPage.dart';
-import 'package:rental/pages/FavoritesPage.dart';
-import 'package:rental/pages/MapPage.dart';
-import 'package:rental/pages/SettingsPage.dart';
-import 'package:rental/utils/FavoriteUtils.dart';
-import 'package:rental/utils/SortUtils.dart';
-import 'package:rental/utils/ThemeProvider.dart';
-import 'package:rental/widgets/main_widgets.dart';
+
+import 'package:rental/utils/sort_utils.dart';
+import 'package:rental/utils/theme_provider.dart';
+import 'package:rental/utils/data_service.dart';
+import 'package:rental/utils/route_generator.dart';
+import 'package:rental/utils/theme_data.dart';
+import 'package:rental/widgets/main/bottom_app_bar.dart';
+import 'package:rental/widgets/main/categories_section.dart';
+import 'package:rental/widgets/main/section.dart';
+import 'package:rental/widgets/main/top_bar.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -33,55 +33,6 @@ Future<void> main() async{
 }
 
 class MyApp extends StatelessWidget {
-  final lightTheme = ThemeData(
-    brightness: Brightness.light,
-    primaryColor: Colors.orange,
-    scaffoldBackgroundColor: Colors.white,
-    cardColor: Colors.grey[50],
-    textTheme: TextTheme(
-      bodyMedium: TextStyle(color: Colors.black),
-      bodySmall: TextStyle(color: Colors.grey[600]),
-      titleMedium: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-      titleLarge: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
-    ),
-    iconTheme: IconThemeData(color: Colors.black),
-    appBarTheme: AppBarTheme(
-      backgroundColor: Colors.orange,
-      foregroundColor: Colors.white,
-    ),
-    colorScheme: ColorScheme.light(
-      primary: Colors.orange,
-      secondary: Colors.deepOrange,
-      // onBackground: Colors.black,
-      onSurface: Colors.black,
-      error: Colors.red,
-    ),
-  );
-
-  final darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    primaryColor: Colors.deepOrange,
-    scaffoldBackgroundColor: Color(0xff212529),
-    cardColor: Colors.grey[850],
-    textTheme: TextTheme(
-      bodyMedium: TextStyle(color: Colors.white),
-      bodySmall: TextStyle(color: Colors.grey[400]),
-      titleMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      titleLarge: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-    ),
-    iconTheme: IconThemeData(color: Colors.white),
-    appBarTheme: AppBarTheme(
-      backgroundColor: Color(0xff343a40),
-      foregroundColor: Colors.white,
-    ),
-    colorScheme: ColorScheme.dark(
-      primary: Colors.deepOrange,
-      secondary: Colors.orange,
-      // onBackground: Colors.white,
-      onSurface: Colors.transparent,
-      error: Colors.red,
-    ),
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +45,8 @@ class MyApp extends StatelessWidget {
       themeMode: themeProvider.themeMode,
       home: MainPage(),
       debugShowCheckedModeBanner: false,
+      initialRoute: AppRoutes.home,
+      onGenerateRoute: RouteGenerator.generateRoute
     );
   }
 }
@@ -101,39 +54,17 @@ class MyApp extends StatelessWidget {
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
-  Future<List<Estate>> fetchEstates() async{
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection('estates').get();
-    return snapshot.docs.map((doc) => Estate.fromFirestore(doc)).toList();
-  }
-
-  Future<List<Category>> fetchCategories() async{
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection('categories').get();
-    return snapshot.docs.map((doc) => Category.fromFirestore(doc)).toList();
-  }
-
-  Future<User> fetchExampleUser() async{
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection('users').get();
-    return User.fromFirestore(snapshot.docs[0]);
-  }
-
-  Future<List<City>> fetchCities() async{
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection('cities').get();
-    return snapshot.docs.map((doc) => City.fromFirestore(doc)).toList();
-  }
-
-
   @override
   Widget build(BuildContext context) {
+    final dataService = DataService();
+    final theme = Theme.of(context);
+
     return FutureBuilder(
       future: Future.wait([
-        fetchCategories(),
-        fetchEstates(),
-        fetchExampleUser(),
-        fetchCities()
+        dataService.fetchCategories(),
+        dataService.fetchEstates(),
+        dataService.fetchExampleUser(),
+        dataService.fetchCities()
       ]),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -157,7 +88,7 @@ class MainPage extends StatelessWidget {
         print(estates.length);
 
         return Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: theme.scaffoldBackgroundColor,
           body: SafeArea(
             child: ListView(
               padding: const EdgeInsets.all(16),
@@ -183,60 +114,10 @@ class MainPage extends StatelessWidget {
               ],
             ),
           ),
-          bottomNavigationBar: BottomAppBar(
-            shape: CircularNotchedRectangle(),
-            notchMargin: 8,
-            color: Colors.transparent,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(icon: Icon(Icons.camera_alt), onPressed: () async {
-                  final ImagePicker picker = ImagePicker();
-                  final XFile? photo = await picker.pickImage(source: ImageSource.camera);
-                }),
-                IconButton(
-                  icon: Icon(Icons.favorite),
-                  onPressed: () async {
-                    List<Estate> favorites = await FavoriteUtils.getFavoriteEstates(estates);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FavoritesPage(estates: favorites),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(width: 40),
-                IconButton(
-                  icon: Icon(Icons.message),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChatsPage()
-                      )
-                    );
-                  },
-                ),
-                IconButton(
-                    icon: Icon(Icons.settings),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SettingsPage()
-                        )
-                      );
-                  }
-                ),
-              ],
-            ),
-          ),
+          bottomNavigationBar: MyBottomAppBar(estates: estates),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => MapPage(cities: cities)));
-            },
-            backgroundColor: Theme.of(context).primaryColor,
+            onPressed: () => Navigator.pushNamed(context, AppRoutes.map, arguments: {'cities': cities}),
+            backgroundColor: theme.primaryColor,
             shape: CircleBorder(),
             child: Icon(Icons.map),
           ),
