@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rental/utils/route_generator.dart';
+import 'package:rental/misc/route_generator.dart';
+import '../../misc/app_routes.dart';
 import '../../models/Estate.dart';
-import '../../pages/EstateDetailsPage.dart';
 import '../../utils/favorites_utils.dart';
 
 class EstateCardStyles {
@@ -87,7 +87,7 @@ class _EstateCardState extends State<EstateCard>{
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: theme.colorScheme.secondary
+              color: theme.colorScheme.primary
             )
           )
         ]
@@ -146,17 +146,9 @@ class _EstateCardState extends State<EstateCard>{
               });
         },
         child: Container(
-          margin: EdgeInsets.only(bottom: EstateCardStyles.cardMarginBottom),
           decoration: BoxDecoration(
             color: theme.cardColor,
             borderRadius: BorderRadius.circular(EstateCardStyles.borderRadius),
-            boxShadow: [
-              BoxShadow(
-                color:  theme.colorScheme.onSurface.withValues(alpha: 0.2),
-                blurRadius: 6,
-                offset: Offset(0, 3),
-              ),
-            ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

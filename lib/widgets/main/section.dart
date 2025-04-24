@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rental/utils/route_generator.dart';
+import 'package:rental/misc/route_generator.dart';
 import 'package:rental/widgets/main/section_header.dart';
 
+import '../../misc/app_routes.dart';
 import '../../models/Estate.dart';
 import 'estate_list.dart';
 

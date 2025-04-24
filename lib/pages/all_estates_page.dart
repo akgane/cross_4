@@ -59,7 +59,25 @@ class _AllEstatesPageState extends State<AllEstatesPage>{
               itemCount: _sortedEstates.length,
               itemBuilder: (context, index) {
                 final estate = _sortedEstates[index];
-                return EstateCard(estate: estate);
+                return Column(
+                  children: [
+                    EstateCard(estate: estate),
+                    if(index < _sortedEstates.length - 1)
+                      Column(
+                        children: [
+                          SizedBox(height: 8,),
+
+                          Divider(
+                              height: 1,
+                              thickness: 0.5,
+                              color: Colors.grey[300]
+                          ),
+
+                          SizedBox(height: 8,)
+                        ]
+                      )
+                  ]
+                );
               },
             )
           )

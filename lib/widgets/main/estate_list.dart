@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rental/utils/route_generator.dart';
+import 'package:rental/misc/route_generator.dart';
 
+import '../../misc/app_routes.dart';
 import '../../models/Estate.dart';
-import '../../pages/EstateDetailsPage.dart';
+import '../../pages/estate_details_page.dart';
 import '../../widgets/main/estate_card.dart';
 
 class EstateList extends StatelessWidget {

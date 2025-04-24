@@ -4,7 +4,7 @@ final lightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: Colors.orange,
   scaffoldBackgroundColor: Colors.white,
-  cardColor: Colors.grey[300],
+  cardColor: Colors.transparent,
   textTheme: TextTheme(
     bodyMedium: TextStyle(color: Colors.black),
     bodySmall: TextStyle(color: Colors.grey[600]),
@@ -28,7 +28,8 @@ final darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: Colors.deepOrange,
   scaffoldBackgroundColor: Color(0xff212529),
-  cardColor: Colors.grey[850],
+  // cardColor: Colors.grey[850],
+  cardColor: Colors.transparent,
   textTheme: TextTheme(
     bodyMedium: TextStyle(color: Colors.white),
     bodySmall: TextStyle(color: Colors.grey[400]),

@@ -5,7 +5,7 @@ import 'package:rental/models/Category.dart';
 import 'package:rental/utils/sort_utils.dart';
 import 'package:rental/utils/theme_provider.dart';
 import 'package:rental/utils/data_service.dart';
-import 'package:rental/utils/route_generator.dart';
+import 'package:rental/misc/route_generator.dart';
 import 'package:rental/utils/theme_data.dart';
 import 'package:rental/widgets/main/bottom_app_bar.dart';
 import 'package:rental/widgets/main/categories_section.dart';
@@ -15,6 +15,7 @@ import 'package:rental/widgets/main/top_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+import 'misc/app_routes.dart';
 import 'models/City.dart';
 import 'models/Estate.dart';
 import 'models/Users.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
       home: MainPage(),
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.home,
-      onGenerateRoute: RouteGenerator.generateRoute
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../misc/app_routes.dart';
 import '../../models/Estate.dart';
 import '../../utils/favorites_utils.dart';
-import '../../utils/route_generator.dart';
+import '../../misc/route_generator.dart';
 
 class MyBottomAppBar extends StatelessWidget{
   final List<Estate> estates;

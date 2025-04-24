@@ -8,18 +8,21 @@ class SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          // style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: theme.textTheme.titleLarge,
         ),
         GestureDetector(
           onTap: onSeeAllPressed,
           child: Text(
             "See all",
-            style: TextStyle(color: Colors.orange, fontWeight: FontWeight.w500),
+            style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.w500),
           ),
         )
       ],

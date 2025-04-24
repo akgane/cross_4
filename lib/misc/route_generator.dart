@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:rental/pages/AllEstatesPage.dart';
-import 'package:rental/pages/EstateDetailsPage.dart';
-import 'package:rental/pages/FavoritesPage.dart';
-import 'package:rental/pages/MapPage.dart';
-import 'package:rental/pages/SettingsPage.dart';
+import 'package:rental/pages/all_estates_page.dart';
+import 'package:rental/pages/chat_details_page.dart';
+import 'package:rental/pages/estate_details_page.dart';
+import 'package:rental/pages/favorites_page.dart';
+import 'package:rental/pages/map_page.dart';
+import 'package:rental/pages/settings_page.dart';
 
 import '../main.dart';
-import '../pages/ChatsPage.dart';
+import '../pages/chats_page.dart';
+import 'app_routes.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -44,19 +46,15 @@ class RouteGenerator {
               cities: args?['cities']
           )
         );
+      case AppRoutes.chatDetails:
+        return MaterialPageRoute(
+          builder: (_) => ChatDetailsPage(
+            chat: args?['chat'],
+          )
+        );
       case AppRoutes.home:
       default:
         return MaterialPageRoute(builder: (_) => const MainPage());
     }
   }
-}
-
-class AppRoutes{
-  static const String home = '/';
-  static const String categoryEstateList = '/category-estate-list';
-  static const String estateDetails = '/estate-details';
-  static const String settings = '/settings';
-  static const String favorites = '/favorites';
-  static const String chats = '/chats';
-  static const String map = '/map';
 }
