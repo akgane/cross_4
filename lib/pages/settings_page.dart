@@ -14,13 +14,12 @@ class SettingsPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             ListTile(
               title: Text(
-                  "Dark Mode",
-                  style: theme.textTheme.bodyMedium,
+                "Dark Mode",
+                style: theme.textTheme.bodyMedium,
               ),
               trailing: Switch(
                 value: themeProvider.themeMode == ThemeMode.dark,
@@ -29,10 +28,58 @@ class SettingsPage extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 16),
-            Text(
-              "Other Settings",
-              style: theme.textTheme.bodyMedium,
+            Divider(),
+            ListTile(
+              title: Text(
+                "Notifications",
+                style: theme.textTheme.bodyMedium,
+              ),
+              trailing: Switch(
+                value: false,
+                onChanged: (value) {
+                  // TODO: реализовать
+                },
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Language",
+                style: theme.textTheme.bodyMedium,
+              ),
+              trailing: Icon(Icons.arrow_forward_ios, color: theme.iconTheme.color),
+              onTap: () {
+                // TODO: реализовать переход
+              },
+            ),
+            ListTile(
+              title: Text(
+                "Account Settings",
+                style: theme.textTheme.bodyMedium,
+              ),
+              trailing: Icon(Icons.arrow_forward_ios, color: theme.iconTheme.color),
+              onTap: () {
+                // TODO: реализовать переход
+              },
+            ),
+            ListTile(
+              title: Text(
+                "Privacy Policy",
+                style: theme.textTheme.bodyMedium,
+              ),
+              trailing: Icon(Icons.arrow_forward_ios, color: theme.iconTheme.color),
+              onTap: () {
+                // TODO: реализовать переход
+              },
+            ),
+            ListTile(
+              title: Text(
+                "About",
+                style: theme.textTheme.bodyMedium,
+              ),
+              trailing: Icon(Icons.info_outline, color: theme.iconTheme.color),
+              onTap: () {
+                // TODO: показать информацию
+              },
             ),
           ],
         ),

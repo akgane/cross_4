@@ -12,6 +12,8 @@ import 'package:rental/widgets/main/categories_section.dart';
 import 'package:rental/widgets/main/section.dart';
 import 'package:rental/widgets/main/top_bar.dart';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -48,6 +50,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.home,
       onGenerateRoute: RouteGenerator.generateRoute,
+      localizationsDelegates: [
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [
+        Locale('en'),
+        Locale('ru'),
+        Locale('kz')
+      ],
     );
   }
 }
