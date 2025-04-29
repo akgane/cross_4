@@ -49,9 +49,9 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
-                  Icon(Icons.language, color: Theme.of(context).iconTheme.color),
+                  Icon(Icons.language, color: theme.iconTheme.color),
                   SizedBox(width: 8),
-                  Text(loc.s_language),
+                  Text(loc.s_language, style: theme.textTheme.bodyMedium),
                 ],
               ),
               trailing: Icon(Icons.arrow_forward_ios, color: theme.iconTheme.color),
@@ -61,9 +61,9 @@ class SettingsPage extends StatelessWidget {
                   builder: (context) => AlertDialog(
                     title: Row(
                       children: [
-                        Icon(Icons.language, color: Theme.of(context).iconTheme.color),
+                        Icon(Icons.language, color: theme.iconTheme.color),
                         SizedBox(width: 8),
-                        Text(loc.s_language),
+                        Text(loc.s_language, style: theme.textTheme.bodyMedium),
                       ],
                     ),
                     content: Column(

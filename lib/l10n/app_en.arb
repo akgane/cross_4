@@ -12,5 +12,8 @@
   "s_language": "Language",
   "s_account_settings": "Account Settings",
   "s_privacy": "Privacy Policy",
-  "s_about": "About"
+  "s_about": "About",
+
+  "p_favorites": "Favorites",
+  "p_chats": "Chats"
 }
