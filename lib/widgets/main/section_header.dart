@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SectionHeader extends StatelessWidget {
   final String title;
   final VoidCallback onSeeAllPressed;
@@ -21,7 +23,7 @@ class SectionHeader extends StatelessWidget {
         GestureDetector(
           onTap: onSeeAllPressed,
           child: Text(
-            "See all",
+            AppLocalizations.of(context)!.m_see_all,
             style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.w500),
           ),
         )

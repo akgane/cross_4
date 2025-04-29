@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TopBar extends StatelessWidget{
   final String username;
@@ -24,7 +25,7 @@ class TopBar extends StatelessWidget{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  "Welcome back!",
+                  AppLocalizations.of(context)!.m_welcome_back,
                   style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodyMedium?.color)),
               Text(
                   username,

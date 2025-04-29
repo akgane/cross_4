@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rental/models/Category.dart';
+import 'package:rental/providers/locale_provider.dart';
 
 import 'package:rental/utils/sort_utils.dart';
-import 'package:rental/utils/theme_provider.dart';
+import 'package:rental/providers/theme_provider.dart';
 import 'package:rental/utils/data_service.dart';
 import 'package:rental/misc/route_generator.dart';
 import 'package:rental/utils/theme_data.dart';
@@ -13,6 +14,7 @@ import 'package:rental/widgets/main/section.dart';
 import 'package:rental/widgets/main/top_bar.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -29,8 +31,11 @@ Future<void> main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(ChangeNotifierProvider(
-    create: (_) => ThemeProvider(),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ChangeNotifierProvider(create: (_) => LocaleProvider())
+    ],
     child: MyApp(),
   ));
 }
@@ -40,17 +45,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final localeProvider = Provider.of<LocaleProvider>(context);
 
     return MaterialApp(
       title: 'Rental Estate App',
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: themeProvider.themeMode,
+      locale: localeProvider.locale,
       home: MainPage(),
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.home,
       onGenerateRoute: RouteGenerator.generateRoute,
-      localizationsDelegates: [
+      localizationsDelegates: const
+      [
+        AppLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
@@ -58,7 +67,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('en'),
         Locale('ru'),
-        Locale('kz')
+        Locale('kk')
       ],
     );
   }
@@ -100,6 +109,8 @@ class MainPage extends StatelessWidget {
         print(est);
         print(estates.length);
 
+        final loc = AppLocalizations.of(context);
+
         return Scaffold(
           backgroundColor: theme.scaffoldBackgroundColor,
           body: SafeArea(
@@ -110,17 +121,17 @@ class MainPage extends StatelessWidget {
                 SizedBox(height: 16),
                 CategoriesSection(categories: categories, allEstates: estates),
                 SizedBox(height: 24),
-                Section(title: "New", estates: SortUtils.getRandom(
+                Section(title: loc!.m_section_new, estates: SortUtils.getRandom(
                     15,
                     estates.map((estate) => estate.copyWith()).toList()
                 )),
                 SizedBox(height: 24),
-                Section(title: "Popular", estates: SortUtils.getRandom(
+                Section(title: loc.m_section_popular, estates: SortUtils.getRandom(
                   15,
                   estates.map((estate) => estate.copyWith()).toList()
                 )),
                 SizedBox(height: 24),
-                Section(title: "Hot", estates: SortUtils.getRandom(
+                Section(title: loc.m_section_hot, estates: SortUtils.getRandom(
                     10,
                     estates.map((estate) => estate.copyWith()).toList())
                 )

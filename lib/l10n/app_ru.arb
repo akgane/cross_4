@@ -1,7 +1,16 @@
 {
-  "new": "Новое",
-  "popular": "Популярное",
-  "hot": "Горячее",
-  "welcome_back": "Добро пожаловать!",
-  "see_all": "Больше"
+  "m_section_new": "Новое",
+  "m_section_popular": "Популярное",
+  "m_section_hot": "Горячее",
+  "m_welcome_back": "Добро пожаловать!",
+  "m_see_all": "Больше",
+  "m_categories": "Категории",
+
+  "s_settings": "Настройки",
+  "s_dark_mode": "Тёмная тема",
+  "s_notifications": "Уведомления",
+  "s_language": "Язык",
+  "s_account_settings": "Настройки аккаунта",
+  "s_privacy": "Политика конфиденциальности",
+  "s_about": "О приложении"
 }

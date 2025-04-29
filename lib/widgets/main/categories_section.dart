@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rental/pages/all_estates_page.dart';
-import 'package:rental/utils/CategoriesUtils.dart';
+import 'package:rental/utils/categories_utils.dart';
 import 'package:rental/misc/route_generator.dart';
 import 'package:rental/widgets/main/category_card.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../misc/app_routes.dart';
 import '../../models/Category.dart';
@@ -27,7 +29,7 @@ class CategoriesSection extends StatelessWidget{
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Text(
-            'Categories',
+            AppLocalizations.of(context)!.m_categories,
             style: theme.textTheme.titleMedium
           )
         ),

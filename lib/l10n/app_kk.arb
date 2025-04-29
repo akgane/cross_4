@@ -1,0 +1,16 @@
+{
+  "m_section_new": "Жаңа",
+  "m_section_popular": "Танымал",
+  "m_section_hot": "Ыстық",
+  "m_welcome_back": "Сәлеметсіз бе!",
+  "m_see_all": "Көбірек",
+  "m_categories": "Санаттар",
+
+  "s_settings": "Параметрлер",
+  "s_dark_mode": "Қараңғы режим",
+  "s_notifications": "Хабарламалар",
+  "s_language": "Тіл",
+  "s_account_settings": "Аккаунт баптаулары",
+  "s_privacy": "Құпиялылық саясаты",
+  "s_about": "Қосымша туралы"
+}
