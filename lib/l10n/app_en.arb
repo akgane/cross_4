@@ -15,5 +15,27 @@
   "s_about": "About",
 
   "p_favorites": "Favorites",
-  "p_chats": "Chats"
+  "p_chats": "Chats",
+  "p_map": "Map",
+
+  "map_select_city": "Select city",
+
+  "e_views": "views",
+  "e_description": "Description",
+  "e_details": "Property Details",
+  "e_on_map": "Location on Map",
+
+  "u_price": "Price",
+  "u_title": "Title",
+  "u_date": "Date",
+  "u_views": "Views",
+
+  "a_login": "Login",
+  "a_register": "Register",
+  "a_email": "Email",
+  "a_password": "Password",
+  "a_enter_correct_email": "Enter correct email",
+  "a_password_6_symbols": "Minimum 6 symbols!",
+  "a_not_registered": "Not registered yet? Register",
+  "a_has_account": "Already has account? Login"
 }

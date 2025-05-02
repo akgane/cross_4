@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../services/auth_service.dart';
 
 class ProfilePage extends StatelessWidget {
   final String username;
@@ -36,6 +39,12 @@ class ProfilePage extends StatelessWidget {
               "Its your profile page",
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
+            IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                Provider.of<AuthService>(context, listen: false).signOut();
+              },
+            )
           ],
         ),
       ),

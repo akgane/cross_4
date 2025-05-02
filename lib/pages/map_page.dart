@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../models/City.dart';
 
 class MapPage extends StatefulWidget{
@@ -37,9 +39,11 @@ class _MapPageState extends State<MapPage>{
 
   @override
   Widget build(BuildContext context){
+    final loc = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Map"),
+        title: Text(loc!.p_map),
       ),
       body: Column(
         children: [
@@ -47,7 +51,7 @@ class _MapPageState extends State<MapPage>{
             padding: const EdgeInsets.all(16),
             child: DropdownButton<City>(
               value: selectedCity,
-              hint: Text("Select city"),
+              hint: Text(loc.map_select_city),
               isExpanded: true,
               items: widget.cities.map((City city){
                 return DropdownMenuItem<City>(value: city, child: Text(city.name));

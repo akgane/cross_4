@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rental/utils/sort_utils.dart';
 import '../models/Estate.dart';
 import '../widgets/category_estates_list/estate_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class AllEstatesPage extends StatefulWidget {
   final String title;
@@ -35,6 +37,8 @@ class _AllEstatesPageState extends State<AllEstatesPage>{
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -43,16 +47,19 @@ class _AllEstatesPageState extends State<AllEstatesPage>{
         children: [
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: Wrap(
+              spacing: 16,
+              runSpacing: 12,
+              alignment: WrapAlignment.spaceEvenly,
               children: [
-                _buildSortButton("Price", Icons.attach_money, "price"),
-                _buildSortButton("Title", Icons.sort_by_alpha, "title"),
-                _buildSortButton("Date", Icons.calendar_today, "date"),
-                _buildSortButton("Views", Icons.visibility, "views")
+                _buildSortButton(loc!.u_price, Icons.attach_money, "price"),
+                _buildSortButton(loc.u_title, Icons.sort_by_alpha, "title"),
+                _buildSortButton(loc.u_date, Icons.calendar_today, "date"),
+                _buildSortButton(loc.u_views, Icons.visibility, "views"),
               ],
             ),
-          ),
+          )
+,
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16),

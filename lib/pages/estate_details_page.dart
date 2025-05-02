@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rental/misc/extensions.dart';
 import 'package:rental/utils/favorites_utils.dart';
 import '../models/Estate.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EstateDetailsPage extends StatefulWidget {
   final Estate estate;
@@ -42,6 +43,7 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final loc = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -101,7 +103,7 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
             SizedBox(height: 16),
 
             Text(
-              "Description",
+              loc!.e_description,
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 8),
@@ -111,14 +113,14 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
             ),
             SizedBox(height: 16),
             Text(
-              "Property Details",
+              loc.e_details,
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 8),
             _buildFeaturesTable(),
             SizedBox(height: 16),
             Text(
-              "Location on Map",
+              loc.e_on_map,
               style: theme.textTheme.titleMedium,
             ),
             SizedBox(height: 8),

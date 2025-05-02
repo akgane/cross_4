@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rental/models/Category.dart';
 import 'package:rental/providers/locale_provider.dart';
+import 'package:rental/services/auth_service.dart';
 
 import 'package:rental/utils/sort_utils.dart';
 import 'package:rental/providers/theme_provider.dart';
 import 'package:rental/utils/data_service.dart';
 import 'package:rental/misc/route_generator.dart';
 import 'package:rental/utils/theme_data.dart';
+import 'package:rental/widgets/auth/auth_wrapper.dart';
 import 'package:rental/widgets/main/bottom_app_bar.dart';
 import 'package:rental/widgets/main/categories_section.dart';
 import 'package:rental/widgets/main/section.dart';
@@ -34,7 +36,8 @@ Future<void> main() async{
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => ThemeProvider()),
-      ChangeNotifierProvider(create: (_) => LocaleProvider())
+      ChangeNotifierProvider(create: (_) => LocaleProvider()),
+      ChangeNotifierProvider(create: (_) => AuthService())
     ],
     child: MyApp(),
   ));
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
       darkTheme: darkTheme,
       themeMode: themeProvider.themeMode,
       locale: localeProvider.locale,
-      home: MainPage(),
+      home: AuthWrapper(),
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.home,
       onGenerateRoute: RouteGenerator.generateRoute,
