@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rental/providers/locale_provider.dart';
+import 'package:rental/utils/user_preferences.dart';
+import 'package:rental/widgets/settings/language_list_tile.dart';
 import '../providers/theme_provider.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,7 +10,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final locProvider = Provider.of<LocaleProvider>(context, listen: false);
+    final userPrefs = UserPreferences();
+
     final theme = Theme.of(context);
 
     final loc = AppLocalizations.of(context);
@@ -30,6 +35,8 @@ class SettingsPage extends StatelessWidget {
                 value: themeProvider.themeMode == ThemeMode.dark,
                 onChanged: (value) {
                   themeProvider.toggleTheme();
+
+                  userPrefs.saveUserPreferences(themeProvider.getTheme(), locProvider.getLocale());
                 },
               ),
             ),
@@ -69,27 +76,9 @@ class SettingsPage extends StatelessWidget {
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ListTile(
-                          title: Text('English'),
-                          onTap: (){
-                            Provider.of<LocaleProvider>(context, listen: false).setLocale(const Locale('en'));
-                            Navigator.of(context).pop();
-                          }
-                        ),
-                        ListTile(
-                            title: Text('Русский'),
-                            onTap: (){
-                              Provider.of<LocaleProvider>(context, listen: false).setLocale(const Locale('ru'));
-                              Navigator.of(context).pop();
-                            }
-                        ),
-                        ListTile(
-                            title: Text('Қазақша'),
-                            onTap: (){
-                              Provider.of<LocaleProvider>(context, listen: false).setLocale(const Locale('kk'));
-                              Navigator.of(context).pop();
-                            }
-                        )
+                        LanguageListTile(title: 'English', locale: 'en', locProvider: locProvider, themeProvider: themeProvider, userPrefs: userPrefs),
+                        LanguageListTile(title: 'Русский', locale: 'ru', locProvider: locProvider, themeProvider: themeProvider, userPrefs: userPrefs),
+                        LanguageListTile(title: 'Қазақша', locale: 'kk', locProvider: locProvider, themeProvider: themeProvider, userPrefs: userPrefs),
                       ]
                     )
                   )

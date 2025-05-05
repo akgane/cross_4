@@ -37,5 +37,6 @@
   "a_enter_correct_email": "Enter correct email",
   "a_password_6_symbols": "Minimum 6 symbols!",
   "a_not_registered": "Not registered yet? Register",
-  "a_has_account": "Already has account? Login"
+  "a_has_account": "Already has account? Login",
+  "a_guest_mode": "Guest mode"
 }

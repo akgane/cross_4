@@ -6,7 +6,7 @@ import 'package:rental/services/auth_service.dart';
 
 import 'package:rental/utils/sort_utils.dart';
 import 'package:rental/providers/theme_provider.dart';
-import 'package:rental/utils/data_service.dart';
+import 'package:rental/services/data_service.dart';
 import 'package:rental/misc/route_generator.dart';
 import 'package:rental/utils/theme_data.dart';
 import 'package:rental/widgets/auth/auth_wrapper.dart';
@@ -104,13 +104,6 @@ class MainPage extends StatelessWidget {
         final List<Estate> estates = snapshot.data![1] as List<Estate>;
         final User currentUser = snapshot.data![2] as User;
         final List<City> cities = snapshot.data![3] as List<City>;
-
-        String est = "";
-        for(Estate estate in estates){
-          est += "${estate.title} | ${estate.views}\n";
-        }
-        print(est);
-        print(estates.length);
 
         final loc = AppLocalizations.of(context);
 

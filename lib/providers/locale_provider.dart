@@ -15,4 +15,6 @@ class LocaleProvider extends ChangeNotifier{
     _locale = const Locale('en');
     notifyListeners();
   }
+
+  String getLocale() => locale.toString();
 }

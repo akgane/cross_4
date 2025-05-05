@@ -5,6 +5,7 @@ import 'package:rental/pages/estate_details_page.dart';
 import 'package:rental/pages/favorites_page.dart';
 import 'package:rental/pages/map_page.dart';
 import 'package:rental/pages/settings_page.dart';
+import 'package:rental/widgets/auth/auth_wrapper.dart';
 
 import '../main.dart';
 import '../pages/chats_page.dart';
@@ -51,6 +52,10 @@ class RouteGenerator {
           builder: (_) => ChatDetailsPage(
             chat: args?['chat'],
           )
+        );
+      case AppRoutes.auth:
+        return MaterialPageRoute(
+          builder: (_) => AuthWrapper()
         );
       case AppRoutes.home:
       default:

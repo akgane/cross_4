@@ -37,5 +37,6 @@
   "a_enter_correct_email": "Дұрыс email енгізіңіз",
   "a_password_6_symbols": "Кемінде 6 таңба!",
   "a_not_registered": "Тіркелмегенсіз бе? Тіркелу",
-  "a_has_account": "Аккаунтыңыз бар ма? Кіру"
+  "a_has_account": "Аккаунтыңыз бар ма? Кіру",
+  "a_guest_mode": "Қонақ режимі"
 }

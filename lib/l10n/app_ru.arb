@@ -37,5 +37,6 @@
   "a_enter_correct_email": "Введите корректный email",
   "a_password_6_symbols": "Минимум 6 символов!",
   "a_not_registered": "Ещё не зарегистрированы? Зарегистрироваться",
-  "a_has_account": "Уже есть аккаунт? Войти"
+  "a_has_account": "Уже есть аккаунт? Войти",
+  "a_guest_mode": "Гостевой режим"
 }

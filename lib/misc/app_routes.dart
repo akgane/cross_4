@@ -7,4 +7,5 @@ class AppRoutes{
   static const String chats = '/chats';
   static const String map = '/map';
   static const String chatDetails = '/chat-details';
+  static const String auth = '/auth';
 }

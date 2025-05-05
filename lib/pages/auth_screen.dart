@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rental/misc/app_routes.dart';
+import 'package:rental/providers/theme_provider.dart';
 import 'package:rental/services/auth_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rental/utils/user_preferences.dart';
+
+import '../providers/locale_provider.dart';
+import '../widgets/settings/language_list_tile.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -33,11 +39,17 @@ class _AuthScreenState extends State<AuthScreen> {
     } catch (e) {
       showDialog(
         context: context,
-        builder: (_) => AlertDialog(
-          title: Text('Error'),
-          content: Text(e.toString()),
-          actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('ОК'))],
-        ),
+        builder:
+            (_) => AlertDialog(
+              title: Text('Error'),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('ОК'),
+                ),
+              ],
+            ),
       );
     } finally {
       setState(() => _isLoading = false);
@@ -48,6 +60,10 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final loc = AppLocalizations.of(context);
+
+    final locProvider = Provider.of<LocaleProvider>(context, listen: false);
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final userPrefs = UserPreferences();
 
     return Scaffold(
       body: Padding(
@@ -70,9 +86,93 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            _isLogin ? loc!.a_login : loc!.a_register,
-                            style: theme.textTheme.titleLarge
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                _isLogin ? loc!.a_login : loc!.a_register,
+                                style: theme.textTheme.titleLarge,
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.language,
+                                      color: theme.iconTheme.color,
+                                    ),
+                                    tooltip: loc.s_language,
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder:
+                                            (context) => AlertDialog(
+                                              title: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.language,
+                                                    color:
+                                                        theme.iconTheme.color,
+                                                  ),
+                                                  SizedBox(width: 8),
+                                                  Text(
+                                                    loc.s_language,
+                                                    style:
+                                                        theme
+                                                            .textTheme
+                                                            .bodyMedium,
+                                                  ),
+                                                ],
+                                              ),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  LanguageListTile(
+                                                    title: 'English',
+                                                    locale: 'en',
+                                                    locProvider: locProvider,
+                                                    themeProvider:
+                                                        themeProvider,
+                                                    userPrefs: userPrefs,
+                                                  ),
+                                                  LanguageListTile(
+                                                    title: 'Русский',
+                                                    locale: 'ru',
+                                                    locProvider: locProvider,
+                                                    themeProvider:
+                                                        themeProvider,
+                                                    userPrefs: userPrefs,
+                                                  ),
+                                                  LanguageListTile(
+                                                    title: 'Қазақша',
+                                                    locale: 'kk',
+                                                    locProvider: locProvider,
+                                                    themeProvider:
+                                                        themeProvider,
+                                                    userPrefs: userPrefs,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                      );
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.dark_mode_outlined,
+                                      color: theme.iconTheme.color,
+                                    ),
+                                    onPressed: () {
+                                      themeProvider.toggleTheme();
+                                      userPrefs.saveUserPreferences(
+                                        themeProvider.getTheme(),
+                                        locProvider.getLocale(),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                           TextFormField(
                             key: ValueKey('email'),
@@ -82,24 +182,33 @@ class _AuthScreenState extends State<AuthScreen> {
                               labelStyle: theme.textTheme.bodyMedium,
                             ),
                             keyboardType: TextInputType.emailAddress,
-                            validator: (value) =>
-                            value!.contains('@') ? null : loc.a_enter_correct_email,
+                            validator:
+                                (value) =>
+                                    value!.contains('@')
+                                        ? null
+                                        : loc.a_enter_correct_email,
                             onSaved: (value) => _email = value!.trim(),
                           ),
                           TextFormField(
                             key: ValueKey('password'),
+                            style: theme.textTheme.bodyMedium,
                             decoration: InputDecoration(
                               labelText: loc.a_password,
                               labelStyle: theme.textTheme.bodyMedium,
                             ),
                             obscureText: true,
-                            validator: (value) =>
-                            value!.length >= 6 ? null : loc.a_password_6_symbols,
+                            validator:
+                                (value) =>
+                                    value!.length >= 6
+                                        ? null
+                                        : loc.a_password_6_symbols,
                             onSaved: (value) => _password = value!,
                           ),
                           SizedBox(height: 16),
                           if (_isLoading)
-                            CircularProgressIndicator(color: theme.colorScheme.primary),
+                            CircularProgressIndicator(
+                              color: theme.colorScheme.primary,
+                            ),
                           if (!_isLoading)
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -111,18 +220,36 @@ class _AuthScreenState extends State<AuthScreen> {
                                 ),
                               ),
                               onPressed: _submit,
-                              child: Text(_isLogin ? loc.a_login : loc.a_register),
+                              child: Text(
+                                _isLogin ? loc.a_login : loc.a_register,
+                              ),
                             ),
                           TextButton(
                             style: TextButton.styleFrom(
-                              textStyle: theme.textTheme.bodyLarge
+                              textStyle: theme.textTheme.bodyLarge,
                             ),
                             onPressed: () {
                               setState(() => _isLogin = !_isLogin);
                             },
-                            child: Text(_isLogin
-                                ? loc.a_not_registered
-                                : loc.a_has_account),
+                            child: Text(
+                              _isLogin
+                                  ? loc.a_not_registered
+                                  : loc.a_has_account,
+                            ),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: theme.colorScheme.primary,
+                              foregroundColor: theme.colorScheme.onPrimary,
+                              minimumSize: Size(50, 35),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: (){
+                              Navigator.pushNamed(context, AppRoutes.home);
+                            },
+                            child: Text(loc.a_guest_mode),
                           ),
                         ],
                       ),

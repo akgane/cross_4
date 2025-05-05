@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rental/misc/app_routes.dart';
 
 import '../services/auth_service.dart';
 
@@ -11,11 +14,13 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text('Profile'),
-        backgroundColor: Colors.deepOrangeAccent,
+        backgroundColor: theme.colorScheme.primary,
       ),
       body: Center(
         child: Column(
@@ -31,18 +36,21 @@ class ProfilePage extends StatelessWidget {
             SizedBox(height: 24),
             Text(
               username,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleLarge,
             ),
             SizedBox(height: 12),
             Text(
               "Hello User ! \n"
               "Its your profile page",
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+              style: theme.textTheme.bodyMedium,
             ),
+            SizedBox(height: 12,),
             IconButton(
-              icon: Icon(Icons.logout),
+              icon: Icon(Icons.logout, color: Theme.of(context).iconTheme.color),
               onPressed: () {
                 Provider.of<AuthService>(context, listen: false).signOut();
+
+                Navigator.pushNamed(context, AppRoutes.auth);
               },
             )
           ],
