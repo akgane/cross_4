@@ -56,6 +56,32 @@ class _AuthScreenState extends State<AuthScreen> {
     }
   }
 
+  void _enterGuest() async{
+    setState(() => _isLoading = true);
+    try{
+      final authService = Provider.of<AuthService>(context, listen: false);
+
+      await authService.enterGuestMode();
+    }catch(e){
+      showDialog(
+        context: context,
+        builder:
+            (_) => AlertDialog(
+          title: Text('Error'),
+          content: Text(e.toString()),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('ОК'),
+            ),
+          ],
+        ),
+      );
+    }finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -246,9 +272,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            onPressed: (){
-                              Navigator.pushNamed(context, AppRoutes.home);
-                            },
+                            onPressed: _enterGuest,
                             child: Text(loc.a_guest_mode),
                           ),
                         ],

@@ -36,6 +36,14 @@ class AuthService with ChangeNotifier{
     }
   }
 
+  Future<UserCredential> enterGuestMode() async{
+    try{
+      return await _auth.signInAnonymously();
+    }on FirebaseAuthException catch (e){
+      throw Exception(_handleFirebaseAuthError(e));
+    }
+  }
+
   Future<void> signOut() async {
     await _auth.signOut();
   }
@@ -51,7 +59,7 @@ class AuthService with ChangeNotifier{
       case 'wrong-password':
         return 'Wrong password.';
       case 'email-already-in-use':
-        return 'Email уже используется.';
+        return 'Email already in use.';
       case 'weak-password':
         return 'Weak password.';
       default:
