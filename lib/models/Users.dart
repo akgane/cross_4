@@ -3,11 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class User{
   final String id;
   final String username;
+  // final String? email;
   final String? avatarUrl;
 
   User({
     required this.id,
     required this.username,
+    // this.email,
     this.avatarUrl
   });
 
@@ -15,8 +17,16 @@ class User{
     return User(
       id: data.id,
       username: data['username'] ?? 'Unknown User',
+      // email: data['email'] ?? 'email'
     );
   }
+
+  // Map<String, dynamic> toFirestore(){
+  //   return {
+  //     'email': email,
+  //     'username': username
+  //   };
+  // }
 }
 
 class Message{

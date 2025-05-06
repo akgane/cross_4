@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,6 +33,9 @@ class MyBottomAppBar extends StatelessWidget{
           IconButton(
             icon: Icon(Icons.favorite),
             onPressed: () async {
+
+              if(FirebaseAuth.instance.currentUser!.isAnonymous) return;
+
               List<Estate> favorites = await FavoriteUtils.getFavoriteEstates(estates);
 
               Navigator.pushNamed(context, AppRoutes.favorites, arguments: {'estates': favorites});

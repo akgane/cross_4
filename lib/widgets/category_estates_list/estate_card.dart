@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rental/misc/route_generator.dart';
@@ -41,6 +42,8 @@ class _EstateCardState extends State<EstateCard>{
   }
 
   Future<void> _toggleFavorite() async{
+    if(FirebaseAuth.instance.currentUser!.isAnonymous) return;
+
     await FavoriteUtils.toggleFavorite(widget.estate.id);
     setState(() {
       isFavorite = !isFavorite;

@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class AuthService with ChangeNotifier{
+import '../models/Users.dart' as Users;
+
+class AuthService with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User? get currentUser => _auth.currentUser;
@@ -17,6 +20,13 @@ class AuthService with ChangeNotifier{
         email: email,
         password: password,
       );
+      //
+      // final user = Users.User(id: credential.user!.uid, username: 'Username', email: credential.user.email);
+      //
+      // await FirebaseFirestore.instance
+      //     .collection('users')
+      //     .doc(credential.user!.uid)
+      //     .set(user.toFirestore());
     } on FirebaseAuthException catch (e) {
       throw Exception(_handleFirebaseAuthError(e));
     }
@@ -36,10 +46,10 @@ class AuthService with ChangeNotifier{
     }
   }
 
-  Future<UserCredential> enterGuestMode() async{
-    try{
+  Future<UserCredential> enterGuestMode() async {
+    try {
       return await _auth.signInAnonymously();
-    }on FirebaseAuthException catch (e){
+    } on FirebaseAuthException catch (e) {
       throw Exception(_handleFirebaseAuthError(e));
     }
   }

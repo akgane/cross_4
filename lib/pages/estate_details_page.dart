@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rental/misc/extensions.dart';
@@ -34,6 +35,7 @@ class _EstateDetailsPageState extends State<EstateDetailsPage>{
   }
 
   Future<void> _toggleFavorite() async{
+    if(FirebaseAuth.instance.currentUser!.isAnonymous) return;
   await FavoriteUtils.toggleFavorite(widget.estate.id);
   setState(() {
     isFavorite = !isFavorite;
